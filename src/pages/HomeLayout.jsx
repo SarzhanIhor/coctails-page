@@ -6,8 +6,9 @@ const HomeLayout = () => {
   return (
     <div>
         <NavBar/>
-        <h2>Home Layout</h2>
-        <Outlet/>
+        <section className="page">
+          <Outlet/>
+        </section>
         <footer>Footer</footer>
     </div>
   )
