@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { About, HomeLayout, Landing, Error, SinglePageError, Coctail } from './pages'
+import { About, HomeLayout, Landing, Error, SinglePageError, Coctail, NewsLetters } from './pages'
 
 import {loader as landingLoader} from './pages/Landing'
-
+import {loader as singleCoctailLoader} from './pages/Coctail'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,8 +22,13 @@ const router = createBrowserRouter([
       {
         path: "coctail/:id",
         element: <Coctail/>,
-        errorElement: <SinglePageError/>
-      }
+        errorElement: <SinglePageError/>,
+        loader: singleCoctailLoader
+      },
+      {
+        path: "newsletters",
+        element: <NewsLetters/>,
+      },
     ]
   },
   
