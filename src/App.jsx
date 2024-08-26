@@ -1,8 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { About, HomeLayout, Landing, Error, SinglePageError, Coctail, NewsLetters } from './pages'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {loader as landingLoader} from './pages/Landing'
 import {loader as singleCoctailLoader} from './pages/Coctail'
+import {action as newsLettersAction} from './pages/NewsLetters'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +32,7 @@ const router = createBrowserRouter([
       {
         path: "newsletters",
         element: <NewsLetters/>,
+        action: newsLettersAction
       },
     ]
   },
@@ -37,7 +42,10 @@ const router = createBrowserRouter([
 function App() {
   
   return (
-   <RouterProvider router={router}/>
+  <>
+    {/* <ToastContainer position='top-center' autoClose={2000}/> */}
+    <RouterProvider router={router}/>
+  </>
   )
 }
 
