@@ -2,10 +2,19 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { About, HomeLayout, Landing, Error, SinglePageError, Coctail, NewsLetters } from './pages'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import {loader as landingLoader} from './pages/Landing'
 import {loader as singleCoctailLoader} from './pages/Coctail'
 import {action as newsLettersAction} from './pages/NewsLetters'
+
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries:{
+      staleTime:1000*60*5
+}
+}
+})
 
 const router = createBrowserRouter([
   {
@@ -16,7 +25,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing/>,
-        loader: landingLoader,
+        loader: landingLoader(queryClient),
         errorElement: <SinglePageError/>
       },
       {
@@ -26,8 +35,8 @@ const router = createBrowserRouter([
       {
         path: "coctail/:id",
         element: <Coctail/>,
-        errorElement: <SinglePageError/>,
-        loader: singleCoctailLoader
+        errorElement: <h2>There was an error...</h2>,
+        loader: singleCoctailLoader(queryClient)
       },
       {
         path: "newsletters",
@@ -42,10 +51,9 @@ const router = createBrowserRouter([
 function App() {
   
   return (
-  <>
-    {/* <ToastContainer position='top-center' autoClose={2000}/> */}
+  <QueryClientProvider client={queryClient}>
     <RouterProvider router={router}/>
-  </>
+  </QueryClientProvider>
   )
 }
 
